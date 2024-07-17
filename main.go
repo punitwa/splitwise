@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"splitwise/api/routes"
 	"splitwise/config"
+	"splitwise/migrations"
 	"splitwise/services"
 	"splitwise/store"
 )
@@ -20,7 +21,7 @@ func main() {
 	db := config.DB
 
 	// Run migrations
-	// migrations.Migrate(db)
+	migrations.Migrate(db)
 
 	// Seed data (if needed)
 	// migrations.Seed(db)

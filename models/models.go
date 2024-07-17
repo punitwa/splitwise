@@ -7,6 +7,8 @@ type User struct {
 	Name     string
 	Email    string
 	Password string
+	Groups   []*Group   `gorm:"many2many:group_users;"`
+	Expenses []*Expense `gorm:"many2many:expense_users;"`
 }
 
 type Expense struct {
@@ -15,14 +17,15 @@ type Expense struct {
 	Amount      float64
 	PayerID     int
 	SplitType   string
-	Users       []User `gorm:"many2many:expense_users;"`
+	GroupID     int
+	Group       *Group
+	Users       []*User `gorm:"many2many:expense_users;"`
 	Settlements []Settlement
 }
 
 type Settlement struct {
 	gorm.Model
 	ExpenseID int
-	Expense   Expense
 	PayerID   int
 	PayeeID   int
 	Amount    float64
@@ -32,6 +35,6 @@ type Settlement struct {
 type Group struct {
 	gorm.Model
 	Name     string
-	Members  []User `gorm:"many2many:group_users;"`
+	Members  []*User `gorm:"many2many:group_users;"`
 	Expenses []Expense
 }
