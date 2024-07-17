@@ -28,6 +28,8 @@ func SetupRoutes(userService services.UserService, expenseService services.Expen
 
 	api.HandleFunc("/groups", groupHandler.CreateGroup).Methods("POST")
 	api.HandleFunc("/groups", groupHandler.GetGroup).Methods("GET")
+	api.HandleFunc("/groups/{groupId}/members/{memberId}", groupHandler.AddMemberToGroup).Methods("POST")
+	api.HandleFunc("/groups/{groupId}/expenses", groupHandler.AddExpenseToGroup).Methods("POST")
 	// Add additional routes for PUT and DELETE
 
 	api.HandleFunc("/settlements", settlementHandler.CreateSettlement).Methods("POST")
